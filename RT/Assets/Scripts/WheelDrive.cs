@@ -19,6 +19,7 @@ public class WheelDrive : MonoBehaviour
 	public float brakeTorque = 30000f;
 	[Tooltip("If you need the visual wheels to be attached automatically, drag the wheel shape here.")]
 	public GameObject wheelShape;
+	public bool CarControlsEnabled;
 
 	[Tooltip("The vehicle's speed when the physics engine can use different amount of sub-steps (in m/s).")]
 	public float criticalSpeed = 5f;
@@ -55,7 +56,8 @@ public class WheelDrive : MonoBehaviour
 	// This helps us to figure our which wheels are front ones and which are rear.
 	void Update()
 	{
-		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
+	if (CarControlsEnabled){
+			m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
 		float angle = maxAngle * Input.GetAxis("Horizontal");
 		float torque = maxTorque * Input.GetAxis("Vertical");
@@ -95,6 +97,8 @@ public class WheelDrive : MonoBehaviour
 				shapeTransform.position = p;
 				shapeTransform.rotation = q;
 			}
+		}
+		
 		}
 	}
 }
